@@ -1,0 +1,41 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.1.RELEASE")
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web',
+            'org.springframework.boot:spring-boot-starter-data-mongodb',
+            'org.springframework.boot:spring-boot-starter-thymeleaf',
+            'org.springframework.boot:spring-boot-starter-hateoas',
+            'org.springframework.boot:spring-boot-devtools',)
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '2.1.1.RELEASE', ext: 'pom'
+   // compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.1.RELEASE'
+    
+    //compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.1.1.RELEASE'
+    
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
+    compile group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.4.0-b180830.0438'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+
+}
