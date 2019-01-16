@@ -1,4 +1,4 @@
-package application.domain.BankShares.valid;
+package application.domain.bankshares.valid;
 
 import application.domain.interfaces.shares.ValidBalanceLimitInterface;
 import application.exceptions.ExceptionCustom;

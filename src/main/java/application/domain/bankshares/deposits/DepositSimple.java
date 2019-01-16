@@ -1,4 +1,4 @@
-package application.domain.BankShares.deposits;
+package application.domain.bankshares.deposits;
 
 import application.domain.interfaces.shares.DepositInterface;
 

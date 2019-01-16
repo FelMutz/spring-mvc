@@ -1,17 +1,17 @@
 package application.domain.enums;
 
-import application.domain.BankShares.deposits.DepositSimple;
-import application.domain.BankShares.transfer.TransferSimple;
-import application.domain.BankShares.transfer.TransferWithSexPercent;
-import application.domain.BankShares.valid.ValidBalanceLimitWithTenThousandLimit;
-import application.domain.BankShares.valid.ValidBalanceLimitWithThreeHundredLimit;
-import application.domain.BankShares.valid.ValidBalanceLimitWithoutLimit;
-import application.domain.BankShares.withdrawals.WithdrawalRateOfFivePercent;
-import application.domain.BankShares.withdrawals.WithdrawalSimple;
-import application.domain.Contexts.DepositContext;
-import application.domain.Contexts.TransferContext;
-import application.domain.Contexts.ValidBalanceLimitContex;
-import application.domain.Contexts.WithdrawalContext;
+import application.domain.bankshares.deposits.DepositSimple;
+import application.domain.bankshares.transfer.TransferSimple;
+import application.domain.bankshares.transfer.TransferWithSexPercent;
+import application.domain.bankshares.valid.ValidBalanceLimitWithTenThousandLimit;
+import application.domain.bankshares.valid.ValidBalanceLimitWithThreeHundredLimit;
+import application.domain.bankshares.valid.ValidBalanceLimitWithoutLimit;
+import application.domain.bankshares.withdrawals.WithdrawalRateOfFivePercent;
+import application.domain.bankshares.withdrawals.WithdrawalSimple;
+import application.domain.contexts.DepositContext;
+import application.domain.contexts.TransferContext;
+import application.domain.contexts.ValidBalanceLimitContex;
+import application.domain.contexts.WithdrawalContext;
 
 
 public enum  AccountType {

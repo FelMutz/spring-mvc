@@ -1,4 +1,4 @@
-package application.domain.Contexts;
+package application.domain.contexts;
 
 import application.domain.interfaces.shares.TransferInterface;
 

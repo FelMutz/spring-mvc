@@ -1,4 +1,4 @@
-package application.domain.BankShares.transfer;
+package application.domain.bankshares.transfer;
 
 import application.domain.interfaces.shares.TransferInterface;
 

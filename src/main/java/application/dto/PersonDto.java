@@ -11,6 +11,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -34,5 +36,6 @@ public class PersonDto extends ResourceSupport {
     private PersonType personType;
     private String  CNPJ;
 
+    private List<AccountDto> accountsDto;
 
 }

@@ -1,4 +1,4 @@
-package application.domain.BankShares.withdrawals;
+package application.domain.bankshares.withdrawals;
 
 import application.domain.interfaces.shares.WithdrawalInterface;
 

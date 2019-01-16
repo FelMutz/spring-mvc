@@ -1,8 +1,6 @@
 package application.controllers;
 
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
-
 import application.domain.Account;
 import application.dto.AccountDto;
 import application.mappers.AccountMap;
@@ -15,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,36 +26,22 @@ public class AccountController {
 
     @ApiOperation("Get All Accounts from the bank")
     @GetMapping(produces="application/json")
-    public ArrayList<AccountDto> findAll(){
-
-        ArrayList<AccountDto> accountsLink = new ArrayList<>();
-
-        accountService.findAll().stream().map(x->accountsLink.add(AccountMap.mapToDto(x)));
-
-        accountsLink.forEach(accountDto->{
-            accountDto.add(linkTo(methodOn(AccountController.class).findById(accountDto.getCard())).withSelfRel());
-        });
-
-        return accountsLink;
+    public List<AccountDto> findAll(){
+        return accountService.findAll()
+                .stream().map(account->AccountMap.mapToDto(account)).collect(Collectors.toList());
     }
 
     @ApiOperation("Get a specific Accounts from the bank by id")
     @GetMapping("{card}")
     public AccountDto findById(@PathVariable String card){
-        Account account = accountService.findById(card);
-
-        AccountDto accountDto = AccountMap.mapToDto(account);
-
-        accountDto.add(linkTo(methodOn(AccountController.class).findAll()).withRel("Buscar Todas as Contas"));
-
-        return accountDto;
+       return AccountMap.mapToDto(accountService.findById(card));
     }
 
     @ApiOperation("Get All Accounts from the bank with paging")
     @GetMapping("paging")
-    public Page<Account> findByPage(@RequestParam int page, @RequestParam int size){
+    public Page<AccountDto> findByPage(@RequestParam int page, @RequestParam int size){
         PageRequest pageRequest = PageRequest.of(page, size);
-        return  accountService.findAllBy(pageRequest);
+        return AccountMap.mapPageToDtoPage(accountService.findAllBy(pageRequest));
     }
 
     @ApiOperation("Add a new Account")

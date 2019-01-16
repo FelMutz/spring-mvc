@@ -5,6 +5,8 @@ import application.dto.BindAccountDto;
 import application.exceptions.ExceptionCustom;
 import application.repository.PersonRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,11 @@ public class PersonService {
 
     public List<Person> findAll(){
         return personRepository.findAll();
+    }
+
+
+    public Page<Person> findAllBy(PageRequest pageRequest){
+        return personRepository.findAllBy(pageRequest);
     }
 
     public void deleteAll(){
