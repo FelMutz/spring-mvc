@@ -41,7 +41,7 @@ public class Init implements CommandLineRunner {
         account = Account.builder().password("789").balance(10000.00).accountType(AccountType.PRIVATE).build();
         listAccount.add(accountService.insert(account));
 
-        Person person = Person.builder().name("Felipe Nigeliskii").CPF("023.088.900-75").age(28).accounts(listAccount).personType(PersonType.PHYSICAL).build();
+        Person person = Person.builder().name("Felipe Castilhos").CPF("000.000.000-00").age(28).accounts(listAccount).personType(PersonType.PHYSICAL).build();
         personService.insert(person );
 
         listAccount.clear();
@@ -54,7 +54,7 @@ public class Init implements CommandLineRunner {
         account = Account.builder().password("789").balance(10000.00).accountType(AccountType.SAVING).build();
         listAccount.add(accountService.insert(account));
 
-        person = person.builder().name("Carlos Alberto").CPF("023.088.900-76").age(28).accounts(listAccount).CNPJ("1135277000195").personType(PersonType.LEGAL).build();
+        person = person.builder().name("Carlos Alberto").CPF("111.111.111-11").age(28).accounts(listAccount).CNPJ("1135277000195").personType(PersonType.LEGAL).build();
         personService.insert(person);
     }
 }
