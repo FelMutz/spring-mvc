@@ -29,9 +29,6 @@ dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '2.1.1.RELEASE', ext: 'pom'
-   // compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.1.RELEASE'
-    
-    //compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.1.1.RELEASE'
     
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
     compile group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.4.0-b180830.0438'
