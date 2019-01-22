@@ -1,7 +1,9 @@
 package application.controllers;
 
 import application.domain.Account;
+import application.dto.AccountDto;
 import application.dto.BankSharesDto;
+import application.facade.BankSharesServicesFacade;
 import application.services.BankSharesServices;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,26 +22,24 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class BankSharesControlle {
 
-    BankSharesServices bankSharesServices;
+    BankSharesServicesFacade bankSharesServicesFacade;
 
     @ApiOperation("withdrawal")
     @PostMapping("withdrawal")
-    @Transactional
-    public Account withdrawal(@Valid @RequestBody BankSharesDto bankSharesDto){
-        return bankSharesServices.withdrawal(bankSharesDto);
+    public AccountDto withdrawal(@Valid @RequestBody BankSharesDto bankSharesDto){
+        return bankSharesServicesFacade.withdrawal(bankSharesDto);
     }
 
     @ApiOperation("deposit")
     @PostMapping("deposit")
-    public Account deposit(@Valid @RequestBody BankSharesDto bankSharesDto){
-        return bankSharesServices.deposit(bankSharesDto);
+    public AccountDto deposit(@Valid @RequestBody BankSharesDto bankSharesDto){
+        return bankSharesServicesFacade.deposit(bankSharesDto);
     }
 
     @ApiOperation("transfer")
     @PostMapping("transfer")
-    @Transactional
-    public Account transfer(@Valid @RequestBody BankSharesDto bankSharesDto){
-        return bankSharesServices.transfer(bankSharesDto);
+    public AccountDto transfer(@Valid @RequestBody BankSharesDto bankSharesDto){
+        return bankSharesServicesFacade.transfer(bankSharesDto);
     }
 
 

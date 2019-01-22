@@ -3,6 +3,7 @@ package application.controllers;
 
 import application.domain.Account;
 import application.dto.AccountDto;
+import application.facade.AccountServiceFacade;
 import application.mappers.AccountMap;
 import application.services.AccountService;
 import io.swagger.annotations.Api;
@@ -22,46 +23,50 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class AccountController {
 
-    AccountService accountService;
+    AccountServiceFacade accountServiceFacade;
 
     @ApiOperation("Get All Accounts from the bank")
     @GetMapping(produces="application/json")
     public List<AccountDto> findAll(){
-        return accountService.findAll()
-                .stream().map(account->AccountMap.mapToDto(account)).collect(Collectors.toList());
+        return accountServiceFacade.findAll();
     }
 
     @ApiOperation("Get a specific Accounts from the bank by id")
     @GetMapping("{card}")
     public AccountDto findById(@PathVariable String card){
-       return AccountMap.mapToDto(accountService.findById(card));
+       return accountServiceFacade.findById(card);
     }
 
     @ApiOperation("Get All Accounts from the bank with paging")
     @GetMapping("paging")
     public Page<AccountDto> findByPage(@RequestParam int page, @RequestParam int size){
-        PageRequest pageRequest = PageRequest.of(page, size);
-        return AccountMap.mapPageToDtoPage(accountService.findAllBy(pageRequest));
+        return accountServiceFacade.findAllBy(page,size);
     }
 
     @ApiOperation("Add a new Account")
     @PostMapping
-    public Account insert(@Valid @RequestBody AccountDto accountDto){
-        return accountService.insert(AccountMap.dtoToMap(accountDto));
+    public AccountDto insert(@Valid @RequestBody AccountDto accountDto){
+        return accountServiceFacade.insert(accountDto);
     }
 
     @ApiOperation("Update a specific Account")
     @PutMapping
    // @PreAuthorize("hasRole('ADMIN')")
-    public Account update(@Valid @RequestBody AccountDto accountDto){
-        return accountService.updateAccount(AccountMap.dtoToMap(accountDto));
+    public AccountDto update(@Valid @RequestBody AccountDto accountDto){
+        return accountServiceFacade.update(accountDto);
     }
 
     @ApiOperation("Delete a specific Account")
     @DeleteMapping("{card}")
     //@PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable String card){
-         accountService.delete(card);
+        accountServiceFacade.delete(card);
+    }
+
+    @ApiOperation("Return Account List by account type")
+    @GetMapping("filter")
+    public List<AccountDto> findByType(@RequestParam String type){
+        return accountServiceFacade.findByAccountType(type);
     }
 
 

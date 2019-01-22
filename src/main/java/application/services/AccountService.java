@@ -24,7 +24,7 @@ public class AccountService {
             Double balance = x.getBalance();
             balance += balance * 6 / 100;
             x.setBalance(Roud.roudBalance(balance));
-            updateAccount(x);
+            update(x);
         });
     }
 
@@ -46,7 +46,7 @@ public class AccountService {
         return  accountRepository.insert(account);
     }
 
-    public Account updateAccount(Account account){
+    public Account update(Account account){
         return accountRepository.save(account);
     }
 
@@ -55,7 +55,7 @@ public class AccountService {
     }
 
     public void delete(String card){
-        accountRepository.delete(findById(card));
+        accountRepository.deleteById(card);
     }
 
     public List<Account> findByAccountType(AccountType accountType){

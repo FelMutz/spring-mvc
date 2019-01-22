@@ -7,6 +7,7 @@ import application.repository.AccountRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -16,6 +17,7 @@ public class BankSharesServices {
 
     private AccountService accountService;
 
+    @Transactional
     public Account withdrawal(BankSharesDto bankSharesDto){
         Account account = accountService.findById(bankSharesDto.getCard());
 
@@ -27,7 +29,7 @@ public class BankSharesServices {
 
         account.setBalance(newBalance);
 
-        return accountService.updateAccount(account);
+        return accountService.update(account);
     }
 
     public Account deposit(BankSharesDto bankSharesDto){
@@ -36,32 +38,42 @@ public class BankSharesServices {
         ValidPassword.validPassword(account.getPassword(), bankSharesDto.getPassword());
 
         account.setBalance(Roud.roudBalance( account.getAccountType().deposit( account.getBalance(), bankSharesDto.getAmount() ) ));
-        return accountService.updateAccount(account);
+        return accountService.update(account);
     }
 
-    public Account transfer(BankSharesDto bankSharesDto){
-        Account account = accountService.findById(bankSharesDto.getCard());
-        Account accountTransfer;
 
-        try {
-            accountTransfer = accountService.findById(bankSharesDto.getAccountTransfer());
-        }
-        catch(IllegalArgumentException e){
+    @Transactional
+    public Account transfer(BankSharesDto bankSharesDto){
+
+        if(bankSharesDto.getAccountTransfer() == null){
             throw ExceptionCustom.builder().code(20).httpStatus(HttpStatus.BAD_REQUEST).message("Erro na solicitação").detail("AccountTransfer não pode ser Null").build();
         }
 
-        ValidPassword.validPassword(account.getPassword(), bankSharesDto.getPassword());
 
-        Double newBalance = Roud.roudBalance(account.getAccountType().transfer(account.getBalance(), bankSharesDto.getAmount() ));
+        transferAccountReceive(bankSharesDto.getAccountTransfer(),bankSharesDto.getAmount());
+
+        return transferAccountSubmit(bankSharesDto.getCard(),bankSharesDto.getAmount(), bankSharesDto.getPassword());
+    }
+
+    public Account transferAccountSubmit(String accountId, Double amount, String password){
+        Account account = accountService.findById(accountId);
+        ValidPassword.validPassword(account.getPassword(), password);
+
+        Double newBalance = Roud.roudBalance(account.getAccountType().transfer(account.getBalance(), amount ));
 
         account.getAccountType().validBalanceLimit(newBalance);
 
         account.setBalance(newBalance);
 
-        accountTransfer.setBalance(Roud.roudBalance( accountTransfer.getBalance() + bankSharesDto.getAmount() ));
+       return accountService.update(account);
+    }
 
-        accountService.updateAccount(accountTransfer);
+    public void transferAccountReceive(String accountId, Double amount){
 
-        return accountService.updateAccount(account);
+        Account account = accountService.findById(accountId);
+
+        account.setBalance(Roud.roudBalance( account.getBalance() + amount ));
+
+        accountService.update(account);
     }
 }
