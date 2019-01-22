@@ -3,18 +3,14 @@ package application.controllers;
 import application.dto.BindAccountDto;
 import application.dto.PersonDto;
 import application.facade.PersonServiceFacade;
-import application.mappers.PersonMap;
-import application.services.PersonService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Api("Person Controller")
 @RestController

@@ -1,21 +1,16 @@
 package application.controllers;
 
 
-import application.domain.Account;
 import application.dto.AccountDto;
 import application.facade.AccountServiceFacade;
-import application.mappers.AccountMap;
-import application.services.AccountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Api("Account Controller")
 @RestController

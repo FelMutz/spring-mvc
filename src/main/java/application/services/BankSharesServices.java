@@ -68,12 +68,12 @@ public class BankSharesServices {
        return accountService.update(account);
     }
 
-    public void transferAccountReceive(String accountId, Double amount){
+    public Account transferAccountReceive(String accountId, Double amount){
 
         Account account = accountService.findById(accountId);
 
         account.setBalance(Roud.roudBalance( account.getBalance() + amount ));
 
-        accountService.update(account);
+        return accountService.update(account);
     }
 }

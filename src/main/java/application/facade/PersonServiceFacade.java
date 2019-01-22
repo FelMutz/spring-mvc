@@ -1,24 +1,18 @@
 package application.facade;
 
-import application.domain.Person;
 import application.dto.BindAccountDto;
 import application.dto.PersonDto;
-import application.exceptions.ExceptionCustom;
-import application.mappers.AccountMap;
 import application.mappers.PersonMap;
 import application.services.PersonService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-
-
-import static application.mappers.PersonMap.*;
-
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static application.mappers.PersonMap.*;
 
 @AllArgsConstructor
 @Component

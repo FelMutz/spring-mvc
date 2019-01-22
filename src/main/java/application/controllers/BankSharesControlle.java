@@ -1,14 +1,11 @@
 package application.controllers;
 
-import application.domain.Account;
 import application.dto.AccountDto;
 import application.dto.BankSharesDto;
 import application.facade.BankSharesServicesFacade;
-import application.services.BankSharesServices;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -2,8 +2,6 @@ package application.facade;
 
 import application.domain.enums.AccountType;
 import application.dto.AccountDto;
-import static application.mappers.AccountMap.*;
-
 import application.mappers.AccountMap;
 import application.services.AccountService;
 import lombok.AllArgsConstructor;
@@ -13,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static application.mappers.AccountMap.*;
 
 @Component
 @AllArgsConstructor
