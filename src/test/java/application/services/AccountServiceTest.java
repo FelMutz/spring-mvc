@@ -27,7 +27,6 @@ public class AccountServiceTest {
     @InjectMocks
     AccountService accountService;
 
-
     @InjectMocks
     Account account;
 
@@ -105,7 +104,7 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void updateAccount() {
+    public void update() {
 
         account.setCard("456");
         account.setAccountType(AccountType.NORMAL);
