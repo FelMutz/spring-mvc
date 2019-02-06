@@ -47,7 +47,7 @@ public class AccountController {
     @ApiOperation("Update a specific Account")
     @PutMapping
    // @PreAuthorize("hasRole('ADMIN')")
-    public AccountDto update(@Valid @RequestBody AccountDto accountDto){
+    public AccountDto update( @RequestBody AccountDto accountDto){
         return accountServiceFacade.update(accountDto);
     }
 

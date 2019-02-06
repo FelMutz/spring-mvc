@@ -54,7 +54,7 @@ public class PersonController {
     @ApiOperation("Update a specific person")
     @PutMapping
     //@PreAuthorize("hasRole('ADMIN')")
-    public PersonDto update(@Valid @RequestBody PersonDto personDto){
+    public PersonDto update(@RequestBody PersonDto personDto){
         return personServiceFacade.update(personDto);
     }
 
