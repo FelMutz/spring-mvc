@@ -1,9 +1,7 @@
 package application.controllers;
 
-import application.domain.Person;
 import application.dto.PersonDto;
 import application.facade.PersonServiceFacade;
-import application.repository.PersonRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -13,19 +11,16 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -80,8 +75,6 @@ public class PersonControllerTest {
         }};
 
         when(personServiceFacade.findAll()).thenReturn(persons);
-
-        mockMvc.getDispatcherServlet();
 
 
         mockMvc.perform(get("/persons").contentType(MediaType.APPLICATION_JSON))

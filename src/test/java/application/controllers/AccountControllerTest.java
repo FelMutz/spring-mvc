@@ -5,6 +5,7 @@ import application.domain.enums.AccountType;
 import application.dto.AccountDto;
 import application.mappers.AccountMap;
 import application.repository.AccountRepository;
+import com.google.gson.Gson;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,8 +17,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -115,7 +115,7 @@ public class AccountControllerTest {
     @Test
     public void update() {
 
-        account.setCard("456");
+       account.setCard("456");
         account.setAccountType(AccountType.NORMAL);
         account.setBalance(900D);
         account.setPassword("789");
@@ -124,12 +124,22 @@ public class AccountControllerTest {
 
         when(accountRepository.save(account)).thenReturn(account);
 
-
-
-//       restTemplate.put("/accounts",accountDto,AccountDto.class);
+ //      restTemplate.put("/accounts",accountDto,AccountDto.class);
 //
 //        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 //        assertThat(response.getBody().getCard()).isEqualTo("456");
+
+        Gson gson = new Gson();
+
+        String jsonAccount = gson.toJson(accountDto);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>(jsonAccount, headers);
+        ResponseEntity<AccountDto> response = restTemplate.exchange("/accounts", HttpMethod.PUT, entity, AccountDto.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().getCard()).isEqualTo("456");
     }
 
     @Test
@@ -147,7 +157,26 @@ public class AccountControllerTest {
         when(accountRepository.findByAccountType(AccountType.SAVING)).thenReturn(accounts.stream().filter(account1 -> account1.getAccountType()==AccountType.SAVING).collect(Collectors.toList()));
         when(accountRepository.findByAccountType(AccountType.PRIVATE)).thenReturn(accounts.stream().filter(account1 -> account1.getAccountType()==AccountType.PRIVATE).collect(Collectors.toList()));
         when(accountRepository.findByAccountType(AccountType.NORMAL)).thenReturn(accounts.stream().filter(account1 -> account1.getAccountType()==AccountType.NORMAL).collect(Collectors.toList()));
-        List<Account> accountsResult = new ArrayList<>();
+
+        ResponseEntity<List> responseEntity =  restTemplate
+                .getForEntity("/accounts/filter?type=SAVING", List.class, AccountDto.class);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().size()).isEqualTo(2);
+
+
+        responseEntity =  restTemplate
+                .getForEntity("/accounts/filter?type=PRIVATE", List.class, AccountDto.class);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().size()).isEqualTo(1);
+
+
+        responseEntity =  restTemplate
+                .getForEntity("/accounts/filter?type=NORMAL", List.class, AccountDto.class);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().size()).isEqualTo(3);
 
     }
 }
