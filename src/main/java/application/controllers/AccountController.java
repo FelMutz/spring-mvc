@@ -46,14 +46,12 @@ public class AccountController {
 
     @ApiOperation("Update a specific Account")
     @PutMapping
-   // @PreAuthorize("hasRole('ADMIN')")
     public AccountDto update( @RequestBody AccountDto accountDto){
         return accountServiceFacade.update(accountDto);
     }
 
     @ApiOperation("Delete a specific Account")
     @DeleteMapping("{card}")
-    //@PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable String card){
         accountServiceFacade.delete(card);
     }

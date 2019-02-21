@@ -36,10 +36,6 @@ public class BankSharesServicesTest {
     @InjectMocks
     Account account;
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-    public ErrorCollector errorCollector = new ErrorCollector();
-
     @Before
     public void setUp() throws Exception{
         MockitoAnnotations.initMocks(this);
@@ -69,7 +65,7 @@ public class BankSharesServicesTest {
 
         account = bankSharesServices.withdrawal(bankSharesDto);
 
-        assertEquals(account.getBalance(), Double.valueOf(900));
+        assertEquals(900d, account.getBalance(), 0.01);
 
     }
 
@@ -96,7 +92,7 @@ public class BankSharesServicesTest {
 
         account = bankSharesServices.withdrawal(bankSharesDto);
 
-        assertEquals(account.getBalance(), Double.valueOf(895));
+        assertEquals(895d, account.getBalance(), 0.01);
 
     }
 
@@ -123,7 +119,7 @@ public class BankSharesServicesTest {
 
         account = bankSharesServices.deposit(bankSharesDto);
 
-        assertEquals(account.getBalance(), Double.valueOf(1100));
+        assertEquals(1100d, account.getBalance(), 0.01);
 
     }
 
@@ -151,7 +147,7 @@ public class BankSharesServicesTest {
 
         account = bankSharesServices.transferAccountSubmit(bankSharesDto.getCard(), bankSharesDto.getAmount(), bankSharesDto.getPassword());
 
-        assertEquals(Double.valueOf(894), account.getBalance());
+        assertEquals(894d, account.getBalance(), 0.01);
 
     }
 
@@ -181,7 +177,7 @@ public class BankSharesServicesTest {
 
         account = bankSharesServices.transferAccountReceive(bankSharesDto.getAccountTransfer(), bankSharesDto.getAmount());
 
-        assertEquals(Double.valueOf(1100), account.getBalance());
+        assertEquals(1100d, account.getBalance(), 0.01);
     }
 
 }

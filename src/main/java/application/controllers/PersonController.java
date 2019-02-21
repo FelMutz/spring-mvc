@@ -53,14 +53,12 @@ public class PersonController {
 
     @ApiOperation("Update a specific person")
     @PutMapping
-    //@PreAuthorize("hasRole('ADMIN')")
     public PersonDto update(@RequestBody PersonDto personDto){
         return personServiceFacade.update(personDto);
     }
 
     @ApiOperation("Delete a specific person")
     @DeleteMapping("{id}")
-    //@PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable String id){
         personServiceFacade.delete(id);
     }

@@ -104,8 +104,8 @@ public class PersonServiceTest {
 
         Person personInsert = this.personService.insert (person);
 
-       assertFalse(personInsert.getIdPerson().isEmpty());
-       assertTrue(personInsert.equals(person));
+        assertFalse(personInsert.getIdPerson().isEmpty());
+        assertEquals(personInsert, person);
 
     }
 
